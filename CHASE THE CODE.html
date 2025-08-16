@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Society of India - CUSB | Chase the Code</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+        /* 
+         * MODERN DESIGN SYSTEM
+         * Enhanced color palette with better contrast and visual hierarchy
+         */
+        :root {
+            --primary-blue: #00f0ff; /* More vibrant electric blue */
+            --primary-green: #00ff9d; /* Brighter tech green */
+            --primary-purple: #8a2be2; /* Added for accent variety */
+            --dark-bg: #030a15; /* Slightly lighter for better visibility */
+            --mid-bg: #0a1428;
+            --light-bg: #142842;
+            --text-color: #f0f9ff;
+            --text-muted: #b0c4de;
+            --accent-glow: 0 0 15px rgba(0, 240, 255, 0.7), 0 0 30px rgba(0, 255, 157, 0.5);
+            --card-glow: 0 4px 30px rgba(0, 240, 255, 0.15);
+            --nav-height: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        /* 
+         * PARTICLE NETWORK BACKGROUND 
+         * More sophisticated with connection lines and responsive sizing
+         */
+        #hero-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* 
+         * ANIMATION SYSTEM
+         * More refined animations with better timing functions
+         */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 rgba(0, 240, 255, 0.4), 0 0 0 rgba(0, 255, 157, 0.4); 
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 40px rgba(0, 255, 157, 0.6); 
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
+        .animate-fadeInUp { animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-fadeInLeft { animation: fadeInLeft 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-fadeInRight { animation: fadeInRight 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
+        .animate-delay-500 { animation-delay: 0.5s; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* Scroll-triggered Animations */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .scroll-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-fade-in.is-visible.animate-delay-100 { transition-delay: 0.15s; }
+        .scroll-fade-in.is-visible.animate-delay-200 { transition-delay: 0.3s; }
+        .scroll-fade-in.is-visible.animate-delay-300 { transition-delay: 0.45s; }
+
+        /* 
+         * BUTTON SYSTEM
+         * More sophisticated hover effects with gradient transitions
+         */
+        .btn-primary {
+            background-image: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--card-glow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            z-index: 1;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3), 0 15px 30px rgba(0, 255, 157, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-outline:hover {
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px var(--primary-blue);
+        }
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-blue);
+            z-index: -1;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-outline:hover::before {
+            left: 0;
+        }
+
+        /* 
+         * CARD SYSTEM
+         * Enhanced hover effects with 3D perspective
+         */
+        .card {
+            background: linear-gradient(145deg, var(--mid-bg), var(--light-bg));
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: var(--card-glow);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) rotateX(5deg) rotateY(2deg) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.25);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        /* 
+         * FAQ ACCORDION 
+         * Smoother transitions with better visual feedback
+         */
+        .accordion-item {
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .accordion-header {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 1.25rem 0;
+        }
+        .accordion-header:hover {
+            color: var(--primary-blue);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.is-open {
+            max-height: 500px;
+            padding-bottom: 1.5rem;
+        }
+        .rotate-45 {
+            transform: rotate(45deg);
+        }
+
+        .pulse-animation {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        /* 
+         * LAYOUT SYSTEM
+         * Better spacing and responsive grids
+         */
+        .section {
+            padding: 6rem 1rem;
+            position: relative;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            border-radius: 2px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* 
+         * MOBILE OPTIMIZATIONS
+         * Better touch targets and vertical spacing
+         */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .registration-links-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #countdown {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 300px;
+            }
+        }
+
+        /* 
+         * SPECIAL EFFECTS
+         * For enhanced visual appeal
+         */
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: var(--accent-glow);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* 
+         * NAVIGATION
+         * Sticky with glass morphism effect
+         */
+        #main-header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(3, 10, 21, 0.8);
+    height: var(--nav-height);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(0, 240, 255, 0.15); /* <-- Add this line for the glow */
+}
+        
+        #main-header.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            background-color: rgba(3, 10, 21, 0.95);
+        }
+        
+        /* 
+         * MOBILE MENU
+         * Full-screen with better transitions
+         */
+        #nav-menu {
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* 
+         * COUNTDOWN
+         * More visually striking
+         */
+        .countdown-item {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        /* 
+         * EVENT CARDS
+         * Distinct styling for each event type
+         */
+        .event-card-1 {
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .event-card-2 {
+            border-top: 4px solid var(--primary-green);
+        }
+        
+        /* 
+         * HERO SECTION
+         * More impactful with better typography
+         */
+        .hero-content {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+
+    <!-- HEADER: Modern glass morphism effect -->
+   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+
+            <a href="#hero" class="flex items-center space-x-0 text-xl font-black -ml-4 md:-ml-6">
+                
+                <img src="assets/images/csi-logo.png" alt="CSI Logo" style="height:90px; width:auto;">
+                
+                <span class="
+                    text-white [text-shadow:0_0_10px_var(--primary-blue)]          /* Final color: White with a cyan glow */
+                    font-sans text-base font-bold uppercase tracking-tighter      /* Mobile: Larger, but compact Inter font */
+                    md:font-[Orbitron] md:text-xl md:tracking-[1.5px] md:font-normal /* Desktop: Bold Orbitron font */
+                    -ml-3                                                      /* Shared spacing */
+                ">
+                    Computer Society Of India
+                </span>
+
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#hero" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">Home</a>
+                <a href="#events" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">Events</a>
+                <a href="#highlights" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">Highlights</a>
+                <a href="#csi" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">About CSI</a>
+                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">FAQ</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hover-glow">Contact</a>
+            </nav>
+
+            <button id="nav-toggle" class="md:hidden text-gray-300 hover:text-white transition-colors duration-300 text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+        </div>
+    </header>
+    <!-- MOBILE MENU: Full-screen with blur effect -->
+    <div id="nav-menu" class="fixed top-0 right-0 w-full h-full bg-gray-900 bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex items-center justify-center">
+        <div class="p-8 space-y-8 text-center">
+            <button id="close-menu" class="absolute top-6 right-6 text-gray-300 hover:text-white text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <a href="#hero" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">Home</a>
+            <a href="#events" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">Events</a>
+            <a href="#highlights" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">Highlights</a>
+            <a href="#csi" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">About CSI</a>
+            <a href="#faq" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">FAQ</a>
+            <a href="#contact" class="block text-2xl text-gray-300 hover:text-white font-semibold transition-colors duration-300 hover-glow" onclick="closeMenu()">Contact</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION: More dynamic with floating elements -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center text-center px-4" style="padding-top: calc(var(--nav-height) + 2rem);">
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- Floating decorative elements -->
+        <div class="absolute top-20 left-10 w-8 h-8 rounded-full bg-blue-400 opacity-20 animate-float hidden md:block"></div>
+        <div class="absolute bottom-1/4 right-20 w-12 h-12 rounded-full bg-green-400 opacity-15 animate-float animate-delay-200 hidden md:block"></div>
+        <div class="absolute top-1/3 right-1/4 w-6 h-6 rounded-full bg-purple-400 opacity-15 animate-float animate-delay-300 hidden md:block"></div>
+        
+        <div class="relative z-10 max-w-6xl px-4 hero-content">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-6 animate-fadeInUp">
+                <span class="text-gradient glow-text">Chase the Code</span><br>
+                <span class="text-3xl sm:text-5xl">The Ultimate Coding Treasure Hunt</span>
+            </h1>
+            <p class="text-lg sm:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 animate-fadeInUp animate-delay-100">
+                Unleash your inner programmer. Solve puzzles, find clues, and race to victory in this flagship event by CSI - CUSB.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fadeInUp animate-delay-200">
+                <a href="#events" class="btn-primary px-8 py-4 font-bold text-lg rounded-full inline-flex items-center justify-center pulse-animation">
+                    <i class="fas fa-user-plus mr-3"></i>Register Now!
+                </a>
+                <a href="#highlights" class="btn-outline px-8 py-4 font-bold text-lg rounded-full inline-flex items-center justify-center">
+                    <i class="fas fa-info-circle mr-3"></i>Learn More
+                </a>
+            </div>
+            
+            <div id="countdown" class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-lg mx-auto scroll-fade-in">
+                <div class="countdown-item p-4 rounded-lg shadow-xl animate-fadeInUp animate-delay-300 transition-all duration-300 hover:bg-blue-400/10">
+                    <div id="days" class="text-3xl sm:text-4xl font-extrabold text-blue-400">00</div>
+                    <div class="text-sm text-gray-400 mt-1">Days</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg shadow-xl animate-fadeInUp animate-delay-400 transition-all duration-300 hover:bg-green-400/10">
+                    <div id="hours" class="text-3xl sm:text-4xl font-extrabold text-green-400">00</div>
+                    <div class="text-sm text-gray-400 mt-1">Hours</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg shadow-xl animate-fadeInUp animate-delay-500 transition-all duration-300 hover:bg-teal-400/10">
+                    <div id="minutes" class="text-3xl sm:text-4xl font-extrabold text-teal-400">00</div>
+                    <div class="text-sm text-gray-400 mt-1">Minutes</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg shadow-xl animate-fadeInUp animate-delay-600 transition-all duration-300 hover:bg-purple-400/10">
+                    <div id="seconds" class="text-3xl sm:text-4xl font-extrabold text-purple-400">00</div>
+                    <div class="text-sm text-gray-400 mt-1">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION: Improved card layout with better visual hierarchy -->
+    <section id="events" class="section bg-dark-bg">
+        <div class="container mx-auto text-center">
+            <h2 class="section-title text-3xl sm:text-4xl font-extrabold scroll-fade-in">
+                The Adventure Awaits
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-12 scroll-fade-in animate-delay-100">
+                Choose your challenge and register to secure your spot in this year's ultimate coding treasure hunt.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Event Card for 1.0 -->
+                <div class="card event-card-1 scroll-fade-in card-hover p-8 text-left">
+                    <div class="flex flex-col h-full">
+                        <span class="inline-block bg-blue-500 text-white text-sm font-semibold py-1 px-4 rounded-full mb-4 self-start">
+                            For 1st Year Students
+                        </span>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-300">Chase the Code 1.0</h3>
+                        <div class="mb-6 text-gray-300">
+                            <p class="mb-4">🚀 Your first big coding adventure is here!</p>
+                            <p class="mb-4">🔍 Hunt for clues, solve logic puzzles, and race against time ⏳ with your squad 🤝</p>
+                            <p class="font-semibold text-blue-200">📅 August 21 | 🕙 10:00 AM – 2:00 PM | 📍 C1 Seminar Hall</p>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="https://forms.gle/BHDdfDi76J3g6Lyr6" target="_blank" class="btn-primary px-6 py-3 w-full font-bold rounded-full transition-all duration-300 transform hover:scale-[1.02] inline-flex items-center justify-center">
+                                <i class="fas fa-user-plus mr-3"></i>Register Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event Card for 2.0 -->
+                <div class="card event-card-2 scroll-fade-in animate-delay-100 card-hover p-8 text-left">
+                    <div class="flex flex-col h-full">
+                        <span class="inline-block bg-green-500 text-white text-sm font-semibold py-1 px-4 rounded-full mb-4 self-start">
+                            For 2nd Year Students
+                        </span>
+                        <h3 class="text-2xl font-bold mb-4 text-green-300">Chase the Code 2.0</h3>
+                        <div class="mb-6 text-gray-300">
+                            <p class="mb-4">🔥 2nd Years, it's your turn!</p>
+                            <p class="mb-4">⚡ Solve advanced challenges, ⏳ beat the clock, and 👑 claim your crown!</p>
+                            <p class="font-semibold text-green-200">📅 August 22 | 🕙 10:00 AM – 2:00 PM | 📍 C1 Seminar Hall</p>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="https://forms.gle/SkQpNWJUtqZG5Dg39" target="_blank" class="btn-primary px-6 py-3 w-full font-bold rounded-full transition-all duration-300 transform hover:scale-[1.02] inline-flex items-center justify-center">
+                                <i class="fas fa-user-plus mr-3"></i>Register Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHTS SECTION: More engaging feature cards -->
+    <section id="highlights" class="section bg-mid-bg">
+        <div class="container mx-auto text-center">
+            <h2 class="section-title text-3xl sm:text-4xl font-extrabold scroll-fade-in">
+                Why Participate?
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-12 scroll-fade-in animate-delay-100">
+                Here's what makes Chase the Code an unmissable experience
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card scroll-fade-in card-hover p-8 text-center">
+                    <div class="text-5xl text-blue-400 mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Sharpen Your Skills</h3>
+                    <p class="text-gray-400">Tackle real-world coding challenges that will push your problem-solving abilities to the limit.</p>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-100 card-hover p-8 text-center">
+                    <div class="text-5xl text-green-400 mb-6">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Win Exciting Prizes</h3>
+                    <p class="text-gray-400">Compete for amazing rewards and recognition from CSI and industry partners.</p>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-200 card-hover p-8 text-center">
+                    <div class="text-5xl text-purple-400 mb-6">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Build Your Network</h3>
+                    <p class="text-gray-400">Connect with like-minded coders, seniors, and potential collaborators.</p>
+                </div>
+                
+                <div class="card scroll-fade-in card-hover p-8 text-center">
+                    <div class="text-5xl text-teal-400 mb-6">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Have Fun!</h3>
+                    <p class="text-gray-400">Experience the thrill of competition in a high-energy, supportive environment.</p>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-100 card-hover p-8 text-center">
+                    <div class="text-5xl text-yellow-400 mb-6">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Spark Creativity</h3>
+                    <p class="text-gray-400">Discover innovative approaches to problems you've never encountered before.</p>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-200 card-hover p-8 text-center">
+                    <div class="text-5xl text-pink-400 mb-6">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Earn Recognition</h3>
+                    <p class="text-gray-400">Add a prestigious competition to your portfolio with participation certificates for all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ABOUT CSI: More visual with timeline -->
+    <section id="csi" class="section bg-dark-bg">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-7/12 scroll-fade-in">
+    <img src="assets/images/csi-logo.png" alt="CSI CUSB Logo" class="w-full rounded-xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500 floating">
+</div>
+                <div class="lg:w-5/12 scroll-fade-in animate-delay-100">
+                    <h2 class="section-title text-3xl sm:text-4xl font-extrabold mb-6 text-left">
+                        About CSI CUSB
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        The <span class="text-blue-300 font-semibold">Computer Society of India Chandigarh University Student Branch (CSI CUSB)</span> is dedicated to fostering technical skills, innovation, and collaboration among students. We organize hackathons, coding challenges, workshops, and industry interactions to empower future tech leaders.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-8">
+                        Our mission is to create a thriving technical community where students can learn, grow, and innovate together. Through events like Chase the Code, we aim to develop problem-solving skills and foster teamwork in a competitive yet collaborative environment.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 mr-4 text-green-400">
+                                <i class="fas fa-check-circle text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white mb-1">Technical Workshops</h4>
+                                <p class="text-gray-400">Regular sessions on cutting-edge technologies and industry trends.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 mr-4 text-blue-400">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white mb-1">Community Building</h4>
+                                <p class="text-gray-400">Connect with peers, seniors, and industry professionals.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 mr-4 text-purple-400">
+                                <i class="fas fa-trophy text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white mb-1">Competitions</h4>
+                                <p class="text-gray-400">Test your skills against the best and win exciting prizes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ SECTION: More interactive with better spacing -->
+    <section id="faq" class="section bg-mid-bg">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-center mb-12 scroll-fade-in">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="card accordion-item scroll-fade-in p-6">
+                    <div class="accordion-header flex justify-between items-center" data-accordion-target="faq-1">
+                        <h3 class="text-lg sm:text-xl font-semibold">Who can participate in Chase the Code?</h3>
+                        <i class="fas fa-plus text-lg text-blue-400 transform transition-transform duration-300"></i>
+                    </div>
+                    <div id="faq-1" class="accordion-content">
+                        <div class="pt-4 text-gray-400 leading-relaxed">
+                            <p class="mb-3">Chase the Code has two separate events:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>1.0:</strong> Exclusively for 1st year students</li>
+                                <li><strong>2.0:</strong> Designed for 2nd year students</li>
+                            </ul>
+                            <p class="mt-3">This ensures a fair and exciting competition tailored to each year's experience level.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card accordion-item scroll-fade-in animate-delay-100 p-6">
+    <div class="accordion-header flex justify-between items-center" data-accordion-target="faq-2">
+        <h3 class="text-lg sm:text-xl font-semibold">Do I need to form a team before registering?</h3>
+        <i class="fas fa-plus text-lg text-blue-400 transform transition-transform duration-300"></i>
+    </div>
+    <div id="faq-2" class="accordion-content">
+        <div class="pt-4 text-gray-400 leading-relaxed">
+            <p>Yes, forming a team is required for participation:</p>
+            <ol class="list-decimal pl-5 space-y-2 mt-2">
+                <li><strong>Team size:</strong> Each team must consist of 3–5 members</li>
+                <li><strong>Register together:</strong> One member can initiate the registration and include all teammates</li>
+            </ol>
+            <p class="mt-3">Since teamwork is the foundation of this event, collaboration is essential!</p>
+        </div>
+    </div>
+</div>
+
+                
+                <div class="card accordion-item scroll-fade-in animate-delay-200 p-6">
+                    <div class="accordion-header flex justify-between items-center" data-accordion-target="faq-3">
+                        <h3 class="text-lg sm:text-xl font-semibold">What should I bring to the event?</h3>
+                        <i class="fas fa-plus text-lg text-blue-400 transform transition-transform duration-300"></i>
+                    </div>
+                    <div id="faq-3" class="accordion-content">
+                        <div class="pt-4 text-gray-400 leading-relaxed">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Student ID:</strong> For verification purposes</li>
+                                <li><strong>Water bottle:</strong> Stay hydrated during the competition</li>
+                                <li><strong>Notebook & pen:</strong> For brainstorming and taking notes</li>
+                                <li><strong>Enthusiasm!</strong> Come ready to solve problems and have fun</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="card accordion-item scroll-fade-in animate-delay-100 p-6">
+                    <div class="accordion-header flex justify-between items-center" data-accordion-target="faq-5">
+                        <h3 class="text-lg sm:text-xl font-semibold">Will there be prizes?</h3>
+                        <i class="fas fa-plus text-lg text-blue-400 transform transition-transform duration-300"></i>
+                    </div>
+                    <div id="faq-5" class="accordion-content">
+                        <div class="pt-4 text-gray-400 leading-relaxed">
+                            <p>Absolutely! We have exciting prizes for:</p>
+                            <ul class="list-disc pl-5 space-y-2 mt-2">
+                                <li><strong>Top 3 teams</strong> in each event (1.0 and 2.0)</li>
+                                <li><strong>All participants</strong> will receive certificates of participation</li>
+                            </ul>
+                            <p class="mt-3">Prize details will be announced closer to the event date.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION: New section for social proof -->
+    <section class="section bg-dark-bg">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-center mb-12 scroll-fade-in">
+                What Participants Say
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card scroll-fade-in card-hover p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400/10 flex items-center justify-center text-blue-400 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Anonymous</h4>
+                            <p class="text-sm text-gray-400">1st Year Participant</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Chase the Code was my first coding competition and it was amazing! The puzzles were challenging but fun, and I learned so much about teamwork and problem-solving."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-100 card-hover p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-400/10 flex items-center justify-center text-green-400 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Anonymous</h4>
+                            <p class="text-sm text-gray-400">2nd Year Winner</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Winning Chase the Code 2.0 was a highlight of my year! The competition was tough but fair, and the organizers created such an energizing atmosphere."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="card scroll-fade-in animate-delay-200 card-hover p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-400/10 flex items-center justify-center text-purple-400 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Anonymous</h4>
+                            <p class="text-sm text-gray-400">CSI Core Member</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"As an organizer, it's incredible to see participants grow through this event. The creativity and teamwork we witness every year is truly inspiring."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION: More compelling call-to-action -->
+    <section class="section bg-gradient-to-r from-blue-900/30 to-green-900/30 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDI0MCwyNTUsMC4wNSkiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=')]"></div>
+        </div>
+        <div class="container mx-auto text-center relative z-10">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-6 scroll-fade-in">
+                Ready to Chase the Code?
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8 scroll-fade-in animate-delay-100">
+                Don't miss your chance to be part of this exciting coding adventure. Register now and test your skills!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 scroll-fade-in animate-delay-200">
+                <a href="#events" class="btn-primary px-8 py-4 font-bold text-lg rounded-full inline-flex items-center justify-center pulse-animation">
+                    <i class="fas fa-user-plus mr-3"></i>Register Now
+                </a>
+                <a href="#contact" class="btn-outline px-8 py-4 font-bold text-lg rounded-full inline-flex items-center justify-center">
+                    <i class="fas fa-question-circle mr-3"></i>Ask a Question
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER: More organized with better spacing -->
+    <footer id="contact" class="section bg-dark-bg border-t border-gray-800/50">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-12">
+                <!-- Column 1: About -->
+                <div class="scroll-fade-in">
+                    <h4 class="text-xl font-bold mb-4 text-gradient">
+                        CSI - CUSB
+                    </h4>
+                    <p class="text-gray-400 mb-4">Empowering the next generation of tech innovators and leaders through collaborative learning and innovation.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/csi.cu/" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 text-xl hover-glow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/computer-society-of-india-cusb-8618bb251/" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 text-xl hover-glow">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:csi.cu@cumail.in" class="text-gray-400 hover:text-white transition-colors duration-300 text-xl hover-glow">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2: Events -->
+                <div class="scroll-fade-in animate-delay-100">
+                    <h4 class="text-xl font-bold mb-4 text-gradient">Events</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#events" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i> Chase the Code 1.0</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-green-400"></i> Chase the Code 2.0</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-purple-400"></i> Hackathons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-teal-400"></i> Workshops</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Quick Links -->
+                <div class="scroll-fade-in animate-delay-200">
+                    <h4 class="text-xl font-bold mb-4 text-gradient">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#hero" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-home mr-2 text-blue-400"></i> Home</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-calendar-alt mr-2 text-green-400"></i> Events</a></li>
+                        <li><a href="#csi" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-info-circle mr-2 text-purple-400"></i> About CSI</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i class="fas fa-question-circle mr-2 text-teal-400"></i> FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4: Contact -->
+                <div class="scroll-fade-in animate-delay-300">
+                    <h4 class="text-xl font-bold mb-4 text-gradient">Contact Us</h4>
+                    <address class="not-italic text-gray-400 space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-blue-400 mt-1 mr-3"></i>
+                            <span>Chandigarh University,<br>Mohali, Punjab</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-green-400 mr-3"></i>
+                            <a href="mailto:csi.cu@cumail.in" class="hover:text-white transition-colors duration-300">csi.cu@cumail.in</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-purple-400 mr-3"></i>
+                            <a href="https://www.csi-india.org/" target="_blank" class="hover:text-white transition-colors duration-300">CSI Main Website</a>
+                        </div>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-gray-800/50 text-center text-gray-500 text-sm scroll-fade-in">
+                <p>Copyright &copy; 2025 CSI Chandigarh University Student Branch. All rights reserved.</p>
+                <p class="mt-2">Made with <i class="fas fa-heart text-red-400"></i> by Ankit Tiwari</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-blue-500 rounded-full shadow-lg z-50 opacity-0 invisible transition-all duration-300 flex items-center justify-center text-white hover:bg-blue-600">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JAVASCRIPT: Enhanced with better organization and performance -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Countdown Timer
+            function updateCountdown() {
+                const eventDate = new Date('August 21, 2025 10:00:00').getTime();
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown').innerHTML = '<div class="col-span-4 text-center text-xl font-semibold text-green-400 py-4">Event has started! See you there!</div>';
+                }
+            }
+            
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // Mobile Menu Toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const closeMenuBtn = document.getElementById('close-menu');
+
+            function openMenu() {
+                navMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                navMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            }
+            
+            navToggle.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+
+            document.querySelectorAll('#nav-menu a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Scroll-triggered animations
+            const scrollObservers = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.scroll-fade-in').forEach(el => {
+                scrollObservers.observe(el);
+            });
+            
+            // Header scroll effect
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // FAQ Accordion
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = document.getElementById(header.dataset.accordionTarget);
+                    const icon = header.querySelector('i');
+                    const isOpen = content.classList.contains('is-open');
+
+                    // Close all other accordions
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        if (c !== content) {
+                            c.classList.remove('is-open');
+                            c.previousElementSibling.querySelector('i').classList.remove('rotate-45');
+                        }
+                    });
+
+                    // Toggle current accordion
+                    if (!isOpen) {
+                        content.classList.add('is-open');
+                        icon.classList.add('rotate-45');
+                    } else {
+                        content.classList.remove('is-open');
+                        icon.classList.remove('rotate-45');
+                    }
+                });
+            });
+
+            // Back to Top Button
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Hero background particle animation
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
+
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                createParticles();
+            }
+
+            function createParticles() {
+                particles = [];
+                const particleCount = Math.floor(width * height / 10000); // Density based on screen size
+                
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        size: Math.random() * 3 + 1,
+                        speedX: Math.random() * 1 - 0.5,
+                        speedY: Math.random() * 1 - 0.5,
+                        color: `rgba(${Math.floor(Math.random() * 56)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.random() * 0.5 + 0.1})`
+                    });
+                }
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw connections first (behind particles)
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p1 = particles[i];
+                        const p2 = particles[j];
+                        const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+                        
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${1 - distance / 150})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Draw particles
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                }
+            }
+
+            function updateParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+
+                    // Bounce off edges
+                    if (p.x > width || p.x < 0) p.speedX *= -1;
+                    if (p.y > height || p.y < 0) p.speedY *= -1;
+                }
+            }
+
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+            
+            // Initialize
+            resizeCanvas();
+            animate();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
