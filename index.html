@@ -1131,5 +1131,38 @@
             });
         });
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 1. Disable Right-Click Context Menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 2. Disable Keyboard Shortcuts for Developer Tools
+        document.addEventListener('keydown', function(e) {
+            // Disable F12
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+            }
+            
+            // Disable Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+
+            // Disable Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+            }
+
+            // Disable Ctrl+U
+            if (e.ctrlKey && e.key === 'U') {
+                e.preventDefault();
+            }
+        });
+
+    });
+</script>
 </body>
 </html>
